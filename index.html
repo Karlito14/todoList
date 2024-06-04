@@ -1,28 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="./public/to-do-list.png">
-    <link rel="stylesheet" href="./src/style.css">
+    <link rel="icon" type="image/png" href="./public/to-do-list.png" />
+    <link rel="stylesheet" href="./src/style.css" />
     <title>Todo List</title>
   </head>
   <body>
     <div id="app">
       <form class="form">
-        <input type="text" required class="form__input">
+        <input type="text" required class="form__input" autofocus />
         <button class="form__button" type="submit">Ajouter</button>
       </form>
-      <ul id="todo_list" class="todo">
-        
-      </ul>
+      <ul id="todo_list" class="todo"></ul>
     </div>
     <script type="module" src="./src/index.js"></script>
   </body>
 
   <template id="template">
     <li class="todo__item">
-      <span class="todo__item__span "></span>
+      <span class="todo__item__span"></span>
       <p class="todo__item__paragraph"></p>
       <button class="todo__item__edit">Editer</button>
       <button class="todo__item__delete">Supprimer</button>

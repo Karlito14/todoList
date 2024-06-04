@@ -1,24 +1,30 @@
+import { addTodo, createElement } from './utils.js';
+
 // affichage des todo
+const elForm = document.querySelector('.form');
+const elInputForm = document.querySelector('form > input[type="text"]');
+const elList = document.querySelector('#todo_list');
+const todos = [
+  {
+    text: 'faire les courses',
+    done: false,
+  },
+  {
+    text: 'aller au coiffeur',
+    done: true,
+  },
+];
 
-const form = document.querySelector('.form');
-const input = document.querySelector('input[type="text"]');
-const list = document.querySelector('#todo_list');
+if (todos.length > 0) {
+  for (const todo of todos) {
+    const clone = createElement(todo);
+    elList.append(clone);
+  }
+}
 
-const addTodo = () => {
-  let inputValue = input.value;
-  inputValue = inputValue[0].toUpperCase() + inputValue.slice(1)
-
-  const template = document.querySelector('#template');
-  const clone = template.content.cloneNode(true);
-  const pagraph = clone.querySelector('p');
-  pagraph.textContent = inputValue;
-
-  list.append(clone);
-  input.value = '';
-  input.focus();
-};
-
-form.addEventListener('submit', (event) => {
+elForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  addTodo();
+  const [clone, todo] = addTodo(elInputForm);
+  todos.push(todo);
+  elList.append(clone);
 });
