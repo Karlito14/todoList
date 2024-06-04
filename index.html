@@ -4,10 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="./public/to-do-list.png">
+    <link rel="stylesheet" href="./src/style.css">
     <title>Todo List</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <form class="form">
+        <input type="text" required class="form__input">
+        <button class="form__button" type="submit">Ajouter</button>
+      </form>
+      <ul id="todo_list" class="todo">
+        
+      </ul>
+    </div>
     <script type="module" src="./src/index.js"></script>
   </body>
+
+  <template id="template">
+    <li class="todo__item">
+      <span id="done_item" class="todo__item__span "></span>
+      <p id="text_item" class="todo__item__paragraph"></p>
+      <button id="edit_button" class="todo__item__edit">Editer</button>
+      <button id="delete_button" class="todo__item__delete">Supprimer</button>
+    </li>
+  </template>
 </html>
