@@ -47,17 +47,51 @@ export const clickButtonDelete = (clone, todos) => {
 };
 
 export const clickSpan = (clone, todos) => {
-  const span = clone.querySelector('.todo__item__span');
-  const paragraph = clone.querySelector('.todo__item__paragraph');
+  const elSpan = clone.querySelector('.todo__item__span');
+  const elParagraph = clone.querySelector('.todo__item__paragraph');
 
-  span.addEventListener('click', () => {
-    span.classList.toggle('done');
-    paragraph.classList.toggle('line');
+  elSpan.addEventListener('click', () => {
+    elSpan.classList.toggle('done');
+    elParagraph.classList.toggle('line');
 
     const index = todos.findIndex(
-      (element) => element.text === paragraph.textContent
+      (element) => element.text === elParagraph.textContent
     );
 
     todos[index].done = !todos[index].done;
+  });
+};
+
+export const clickEdit = (clone, todos) => {
+  const elButtonEdit = clone.querySelector('.todo__item__edit');
+  const elParagraph = clone.querySelector('.todo__item__paragraph');
+  const elSpan = clone.querySelector('.todo__item__span');
+
+  elButtonEdit.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.value = elParagraph.textContent;
+    input.classList.add('input-edit');
+
+    setTimeout(() => {
+      input.focus();
+    }, 100);
+
+    elSpan.style.display = 'none';
+
+    elParagraph.replaceWith(input);
+    const buttonSave = document.createElement('button')
+    buttonSave.textContent = 'Sauvegarder';
+    elButtonEdit.replaceWith(buttonSave)
+
+    buttonSave.addEventListener('click', () => {
+      const index = todos.findIndex(
+        (element) => element.text === elParagraph.textContent
+      );
+      elParagraph.textContent = input.value;
+      input.replaceWith(elParagraph);
+      elSpan.style.display = 'inline-block';
+      buttonSave.replaceWith(elButtonEdit);
+      todos[index].text = elParagraph.textContent
+    });
   });
 };
