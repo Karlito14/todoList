@@ -34,10 +34,30 @@ export const createElement = (todo) => {
 
 export const clickButtonDelete = (clone, todos) => {
   const elButtonDelete = clone.querySelector('button.todo__item__delete');
+
   elButtonDelete.addEventListener('click', () => {
-    todos = todos.filter(
-      (element) => element.text !== clone.children[1].textContent
+    const index = todos.findIndex(
+      (element) => element.text === clone.children[1].textContent
     );
+
+    todos.splice(index, 1);
+
     clone.remove();
+  });
+};
+
+export const clickSpan = (clone, todos) => {
+  const span = clone.querySelector('.todo__item__span');
+  const paragraph = clone.querySelector('.todo__item__paragraph');
+
+  span.addEventListener('click', () => {
+    span.classList.toggle('done');
+    paragraph.classList.toggle('line');
+
+    const index = todos.findIndex(
+      (element) => element.text === paragraph.textContent
+    );
+
+    todos[index].done = !todos[index].done;
   });
 };
