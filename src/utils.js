@@ -31,3 +31,13 @@ export const createElement = (todo) => {
 
   return clone.firstElementChild;
 };
+
+export const clickButtonDelete = (clone, todos) => {
+  const elButtonDelete = clone.querySelector('button.todo__item__delete');
+  elButtonDelete.addEventListener('click', () => {
+    todos = todos.filter(
+      (element) => element.text !== clone.children[1].textContent
+    );
+    clone.remove();
+  });
+};

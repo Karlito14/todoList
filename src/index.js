@@ -1,4 +1,4 @@
-import { addTodo, createElement } from './utils.js';
+import { addTodo, clickButtonDelete, createElement } from './utils.js';
 
 // affichage des todo
 const elForm = document.querySelector('.form');
@@ -19,6 +19,7 @@ if (todos.length > 0) {
   for (const todo of todos) {
     const clone = createElement(todo);
     elList.append(clone);
+    clickButtonDelete(clone, todos);
   }
 }
 
@@ -27,4 +28,6 @@ elForm.addEventListener('submit', (event) => {
   const [clone, todo] = addTodo(elInputForm);
   todos.push(todo);
   elList.append(clone);
+
+  clickButtonDelete(clone, todos);
 });
