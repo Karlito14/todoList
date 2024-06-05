@@ -12,11 +12,11 @@ const elInputForm = document.querySelector('form > input[type="text"]');
 const elList = document.querySelector('#todo_list');
 const todos = [
   {
-    text: 'faire les courses',
+    text: 'Faire les courses',
     done: false,
   },
   {
-    text: 'aller au coiffeur',
+    text: 'Aller au coiffeur',
     done: true,
   },
 ];
