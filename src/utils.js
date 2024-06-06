@@ -68,40 +68,49 @@ export const clickEdit = (clone, todos) => {
   const elSpan = clone.querySelector('.todo__item__span');
 
   elButtonEdit.addEventListener('click', () => {
-    const input = document.createElement('input');
-    input.value = elParagraph.textContent;
-    input.classList.add('input-edit');
+    editInput(elParagraph, elSpan, todos, elButtonEdit)
+  });
 
-    setTimeout(() => {
-      input.focus();
-    }, 100);
-
-    elSpan.style.display = 'none';
-
-    elParagraph.replaceWith(input);
-    const buttonSave = document.createElement('button');
-    buttonSave.textContent = 'Sauvegarder';
-    elButtonEdit.replaceWith(buttonSave);
-
-    input.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        editInput(elParagraph, input, elSpan, todos, buttonSave, elButtonEdit);
-      }
-    });
-
-    buttonSave.addEventListener('click', () => {
-      editInput(elParagraph, input, elSpan, todos, buttonSave, elButtonEdit);
-    });
+  elParagraph.addEventListener('dblclick', () => {
+    editInput(elParagraph, elSpan, todos, elButtonEdit)
   });
 };
 
-const editInput = (paragraph, input, span, todos, btnSave, btnEdit) => {
+const editInput = (paragraph, span, todos, btnEdit) => {
+  const input = document.createElement('input');
+  input.value = paragraph.textContent;
+  input.classList.add('input-edit');
+
+  setTimeout(() => {
+    input.focus();
+  }, 100);
+
+  span.style.display = 'none';
+
+  paragraph.replaceWith(input);
+
+  const buttonSave = document.createElement('button');
+  buttonSave.textContent = 'Sauvegarder';
+  btnEdit.replaceWith(buttonSave);
+
+  input.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      saveEdit(paragraph, input, span, buttonSave, btnEdit, todos)
+    }
+  });
+
+  buttonSave.addEventListener('click', () => {
+    saveEdit(paragraph, input, span, buttonSave, btnEdit, todos)
+  });
+};
+
+const saveEdit = (paragraph, input, span, buttonSave, btnEdit, todos) => {
   const index = todos.findIndex(
     (element) => element.text === paragraph.textContent
   );
   paragraph.textContent = input.value;
   input.replaceWith(paragraph);
   span.style.display = 'inline-block';
-  btnSave.replaceWith(btnEdit);
+  buttonSave.replaceWith(btnEdit);
   todos[index].text = paragraph.textContent;
-};
+}
