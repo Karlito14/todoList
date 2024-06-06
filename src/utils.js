@@ -79,19 +79,29 @@ export const clickEdit = (clone, todos) => {
     elSpan.style.display = 'none';
 
     elParagraph.replaceWith(input);
-    const buttonSave = document.createElement('button')
+    const buttonSave = document.createElement('button');
     buttonSave.textContent = 'Sauvegarder';
-    elButtonEdit.replaceWith(buttonSave)
+    elButtonEdit.replaceWith(buttonSave);
+
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        editInput(elParagraph, input, elSpan, todos, buttonSave, elButtonEdit);
+      }
+    });
 
     buttonSave.addEventListener('click', () => {
-      const index = todos.findIndex(
-        (element) => element.text === elParagraph.textContent
-      );
-      elParagraph.textContent = input.value;
-      input.replaceWith(elParagraph);
-      elSpan.style.display = 'inline-block';
-      buttonSave.replaceWith(elButtonEdit);
-      todos[index].text = elParagraph.textContent
+      editInput(elParagraph, input, elSpan, todos, buttonSave, elButtonEdit);
     });
   });
+};
+
+const editInput = (paragraph, input, span, todos, btnSave, btnEdit) => {
+  const index = todos.findIndex(
+    (element) => element.text === paragraph.textContent
+  );
+  paragraph.textContent = input.value;
+  input.replaceWith(paragraph);
+  span.style.display = 'inline-block';
+  btnSave.replaceWith(btnEdit);
+  todos[index].text = paragraph.textContent;
 };
